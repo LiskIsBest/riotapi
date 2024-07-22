@@ -35,7 +35,7 @@ func convertPlatform2Regional(region string) (string, error) {
 var baseHostURL string = ".api.riotgames.com"
 
 type RiotApi struct {
-	client *http.Client
+	client http.Client
 
 	key      string
 	region   string
@@ -45,7 +45,7 @@ type RiotApi struct {
 
 func NewConnection(region string, apiKey string) *RiotApi {
 	client := http.Client{}
-	return &RiotApi{client: &client, key: apiKey, region: region}
+	return &RiotApi{client: client, key: apiKey, region: region}
 }
 
 func (r RiotApi) Do(req *http.Request) ([]byte, error) {
