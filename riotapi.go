@@ -1,7 +1,6 @@
 package riotapi
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -29,7 +28,7 @@ func convertPlatform2Regional(region string) (string, error) {
 	case "AMERICAS", "ASIA", "EUROPE", "SEA":
 		return region, nil
 	default:
-		return "", errors.New(fmt.Sprintf("Entered region: %s, is not a valid region.", region))
+		return "", fmt.Errorf("entered region: %s, is not a valid region", region)
 	}
 }
 
@@ -38,14 +37,15 @@ var baseHostURL string = ".api.riotgames.com"
 type RiotApi struct {
 	client *http.Client
 
-	key string
+	key      string
+	region   string
 
 	Accounts *AccountsService
 }
 
 func NewConnection(region string, apiKey string) *RiotApi {
 	client := http.Client{}
-	return &RiotApi{client: &client, key: apiKey}
+	return &RiotApi{client: &client, key: apiKey, region: region}
 }
 
 func (r RiotApi) Do(req *http.Request) ([]byte, error) {
