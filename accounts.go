@@ -33,6 +33,7 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 	if err != nil {
 		return AccountDto{}, err
 	}
+	req.Header.Add("X-Riot-Token",s.client.key)
 	body, err := s.client.Do(req)
 	if err != nil {
 		return AccountDto{}, err
