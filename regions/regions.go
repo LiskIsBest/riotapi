@@ -1,4 +1,4 @@
-package riotapi
+package regions
 
 // platorm routing values
 // https://developer.riotgames.com/docs/lol#routing-values_platform-routing-values
