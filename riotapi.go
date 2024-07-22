@@ -24,7 +24,7 @@ type RiotApi struct {
 	Accounts *AccountsService
 }
 
-func NewConnection(apiKey string) *RiotApi {
+func NewRiotApi(apiKey string) *RiotApi {
 	api := &RiotApi{}
 	client := http.Client{}
 	
@@ -32,6 +32,15 @@ func NewConnection(apiKey string) *RiotApi {
 	api.key = apiKey
 	api.Accounts = &AccountsService{client: api}
 	return api
+}
+
+func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error){
+	req, err := http.NewRequest(method, url, body)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("X-Riot-Token", r.key)
+	return req, nil
 }
 
 func (r RiotApi) Do(req *http.Request) ([]byte, error) {
@@ -50,3 +59,4 @@ func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	}
 	return body, nil
 }
+
