@@ -43,7 +43,7 @@ type RiotApi struct {
 	Accounts *AccountsService
 }
 
-func (r RiotApi) NewConnection(region string, apiKey string) *RiotApi {
+func NewConnection(region string, apiKey string) *RiotApi {
 	client := http.Client{}
 	return &RiotApi{client: &client, key: apiKey}
 }
