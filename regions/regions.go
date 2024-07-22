@@ -1,29 +1,30 @@
 package regions
 
-// platorm routing values
-// https://developer.riotgames.com/docs/lol#routing-values_platform-routing-values
-const (
-	BR1 = "br1"
-	EUN = "eun1"
-	EUW = "euw1"
-	JP1 = "jp1"
-	KR  = "kr"
-	LA1 = "la1"
-	LA2 = "la2"
-	NA1 = "na1"
-	OC1 = "oc1"
-	TR1 = "tr1"
-	RU  = "ru"
-	PH2 = "ph2"
-	SG2 = "sg2"
-	TH2 = "th2"
-	TW2 = "tw2"
-	VN2 = "vn2"
-)
+// league of legends wiki to find region abbreviations
+// https://leagueoflegends.fandom.com/wiki/Servers
 
-// region routing values
-// https://developer.riotgames.com/docs/lol#routing-values_regional-routing-values
 const (
+	// platorm routing values
+	// https://developer.riotgames.com/docs/lol#routing-values_platform-routing-values
+	BR = "br1"
+	EUNE = "eun1"
+	EUW = "euw1"
+	JP = "jp1"
+	KR  = "kr"
+	LAN = "la1"
+	LAS = "la2"
+	NA = "na1"
+	OCE = "oc1"
+	TR = "tr1"
+	RU  = "ru"
+	PH = "ph2"
+	SG = "sg2"
+	TH = "th2"
+	TW = "tw2"
+	VN = "vn2"
+
+	// region routing values
+	// https://developer.riotgames.com/docs/lol#routing-values_regional-routing-values
 	AMERICAS = "americas"
 	ASIA     = "asia"
 	EUROPE   = "europe"
