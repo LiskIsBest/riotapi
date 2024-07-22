@@ -3,7 +3,6 @@ package riotapi
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 )
 
 type AccountDto struct {
@@ -24,11 +23,10 @@ type AccountsService struct {
 
 func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", baseHostURL2, puuid)
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
 	}
-	req.Header.Add("X-Riot-Token", s.client.key)
 	body, err := s.client.Do(req)
 	if err != nil {
 		return AccountDto{}, err
@@ -43,11 +41,10 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", baseHostURL2, gameName, tagLine)
-	req, err := http.NewRequest("GET", endpoint, nil)
+	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
 	}
-	req.Header.Add("X-Riot-Token", s.client.key)
 	body, err := s.client.Do(req)
 	if err != nil {
 		return AccountDto{}, err
@@ -58,4 +55,22 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 		return AccountDto{}, err
 	}
 	return account, nil
+}
+
+func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
+	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", baseHostURL2, game, puuid)
+	req, err := s.client.NewRequest("GET", endpoint, nil)
+	if err != nil {
+		return ActiveShardDto{}, err
+	}
+	body, err := s.client.Do(req)
+	if err != nil {
+		return ActiveShardDto{}, err
+	}
+	var shard ActiveShardDto
+	err = json.Unmarshal(body, &shard)
+	if err != nil{
+		return ActiveShardDto{}, err
+	}
+	return shard, nil
 }
