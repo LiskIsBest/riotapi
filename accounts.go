@@ -19,11 +19,11 @@ type ActiveShardDto struct {
 }
 
 type AccountsService struct {
-	parent *RiotApi
+	client *RiotApi
 }
 
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
-	region, err := convertPlatform2Regional(s.parent.region)
+	region, err := convertPlatform2Regional(s.client.region)
 	if err != nil {
 		return AccountDto{}, err
 	}
@@ -33,7 +33,7 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 	if err != nil {
 		return AccountDto{}, err
 	}
-	body, err := s.parent.Do(req)
+	body, err := s.client.Do(req)
 	if err != nil {
 		return AccountDto{}, err
 	}
