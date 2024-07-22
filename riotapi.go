@@ -1,10 +1,8 @@
 package riotapi
 
 import (
-	"fmt"
 	"io"
 	"net/http"
-	"strings"
 )
 
 /*
@@ -15,41 +13,22 @@ riot docs:
 	- https://developer.riotgames.com/docs/lol
 */
 
-func convertPlatform2Regional(region string) (string, error) {
-	switch strings.ToUpper(region) {
-	case "NA1", "BR1", "LA1", "LA2":
-		return "americas", nil
-	case "KR", "JP1":
-		return "asia", nil
-	case "EUN1", "EUW1", "TR1", "RU":
-		return "europe", nil
-	case "OC1", "PH2", "SG2", "TH2", "TW2", "VN2":
-		return "sea", nil
-	case "AMERICAS", "ASIA", "EUROPE", "SEA":
-		return region, nil
-	default:
-		return "", fmt.Errorf("entered region: %s, is not a valid region", region)
-	}
-}
-
-var baseHostURL string = ".api.riotgames.com"
+var baseHostURL1 string = "https://na1.api.riotgames.com"
+var baseHostURL2 string = "https://americas.api.riotgames.com"
 
 type RiotApi struct {
 	client *http.Client
 
 	key      string
-	region   string
-
 	Accounts *AccountsService
 }
 
-func NewConnection(region string, apiKey string) *RiotApi {
+func NewConnection(apiKey string) *RiotApi {
 	api := &RiotApi{}
 	client := http.Client{}
 	
 	api.client = &client
 	api.key = apiKey
-	api.region = region
 	api.Accounts = &AccountsService{client: api}
 	return api
 }

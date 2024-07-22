@@ -23,12 +23,7 @@ type AccountsService struct {
 }
 
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
-	region, err := convertPlatform2Regional(s.client.region)
-	if err != nil {
-		return AccountDto{}, err
-	}
-	hostURL := "https://" + region + baseHostURL
-	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", hostURL, gameName, tagLine)
+	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", baseHostURL2, gameName, tagLine)
 	req, err := http.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
