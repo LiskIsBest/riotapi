@@ -1,6 +1,9 @@
 package riotapi
 
-
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type ChampionMasteryDto struct {
 	Puuid                        string                  `json:"puuid"`
@@ -47,4 +50,26 @@ type RequiredGradeCounts struct {
 	D_plus  int `json:"D+"`
 	D_norm  int `json:"D"`
 	D_minus int `json:"D-"`
+}
+
+type ChampionMasteryService struct {
+	client *RiotApi
+}
+
+func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMasteryDto, error) {
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s",baseHostURL1,puuid)
+	req, err := s.client.NewRequest("GET", endpoint, nil)
+	if err != nil{
+		return []ChampionMasteryDto{}, err
+	}
+	body, err := s.client.Do(req)
+	if err != nil{
+		return []ChampionMasteryDto{}, err
+	}
+	var masteries []ChampionMasteryDto
+	err = json.Unmarshal(body, &masteries)
+	if err != nil{
+		return []ChampionMasteryDto{}, err
+	}
+	return masteries, nil
 }
