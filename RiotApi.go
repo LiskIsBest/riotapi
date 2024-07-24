@@ -60,6 +60,7 @@ func NewRiotApi(apiKey string, region string) (*RiotApi, error) {
 	return r, nil
 }
 
+//Wrapper for http.NewRequest that adds the api key header
 func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
@@ -69,6 +70,7 @@ func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Re
 	return req, nil
 }
 
+//Wrapper for http.Client.Do that handles status code checks and http.Response.Body to []byte conversion
 func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	resp, err := r.client.Do(req)
 	if err != nil {
@@ -86,6 +88,7 @@ func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
+//Creates regional value based on the region code given. also checks that the given region code is valid
 func convertPlatform2Regional(region string) (string, string, error) {
     var regional string
 
