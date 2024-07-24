@@ -23,6 +23,7 @@ type RiotApi struct {
 	key            string
 	Accounts       *AccountsService
 	ChampMasteries *ChampionMasteryService
+	ChampionRotations *ChampionService
 }
 
 func NewRiotApi(apiKey string) *RiotApi {
@@ -33,6 +34,7 @@ func NewRiotApi(apiKey string) *RiotApi {
 	api.key = apiKey
 	api.Accounts = &AccountsService{client: api}
 	api.ChampMasteries = &ChampionMasteryService{client: api}
+	api.ChampionRotations = &ChampionService{client: api}
 	return api
 }
 
