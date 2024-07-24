@@ -20,15 +20,15 @@ var baseHostURL2 string = "https://americas.api.riotgames.com"
 type RiotApi struct {
 	client *http.Client
 
-	key      string
-	Accounts *AccountsService
+	key            string
+	Accounts       *AccountsService
 	ChampMasteries *ChampionMasteryService
 }
 
 func NewRiotApi(apiKey string) *RiotApi {
 	api := &RiotApi{}
 	client := http.Client{}
-	
+
 	api.client = &client
 	api.key = apiKey
 	api.Accounts = &AccountsService{client: api}
@@ -36,7 +36,7 @@ func NewRiotApi(apiKey string) *RiotApi {
 	return api
 }
 
-func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error){
+func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK{
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("request failed: %s", resp.Status)
 	}
 
@@ -61,4 +61,3 @@ func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	}
 	return body, nil
 }
-
