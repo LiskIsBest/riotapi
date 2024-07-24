@@ -24,7 +24,7 @@ type AccountsService struct {
 
 //Get account username, tag, and puuid by puuid
 func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
-	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", baseHostURL2, puuid)
+	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
@@ -44,7 +44,7 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 
 //Get account username, tag, and puuid by username and tag
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
-	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", baseHostURL2, gameName, tagLine)
+	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
@@ -63,7 +63,7 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 
 //Get active shard for a player
 func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
-	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", baseHostURL2, game, puuid)
+	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return ActiveShardDto{}, err

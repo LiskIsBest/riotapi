@@ -58,7 +58,7 @@ type ChampionMasteryService struct {
 
 //Get all champion mastery entries sorted by number of champion points descending
 func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMasteryDto, error) {
-	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s", baseHostURL1, puuid)
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s", s.client.PlatformUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
@@ -77,7 +77,7 @@ func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMaste
 
 //Get a champion mastery by puuid and champion ID
 func (s ChampionMasteryService) ChampionMastery(puuid string, champId string) (ChampionMasteryDto, error) {
-	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/by-champion/%s", baseHostURL1, puuid, champId)
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/by-champion/%s", s.client.PlatformUrl, puuid, champId)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return ChampionMasteryDto{}, err
@@ -99,7 +99,7 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 	if count <= 1 {
 		count = 1
 	}
-	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top?count=%v",baseHostURL1,puuid,count)
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top?count=%v",s.client.PlatformUrl,puuid,count)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
@@ -118,7 +118,7 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 
 // Get a player's total champion mastery score, which is the sum of individual champion mastery levels
 func (s ChampionMasteryService) TotalMasteryScore(puuid string) (int, error){
-	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/scores/by-puuid/%s", baseHostURL1, puuid)
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/scores/by-puuid/%s", s.client.PlatformUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return 0, err
