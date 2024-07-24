@@ -57,6 +57,8 @@ type ChampionMasteryService struct {
 }
 
 //Get all champion mastery entries sorted by number of champion points descending
+//
+//https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteriesByPUUID
 func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMasteryDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s", s.client.PlatformUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
@@ -76,6 +78,8 @@ func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMaste
 }
 
 //Get a champion mastery by puuid and champion ID
+//
+//https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryByPUUID
 func (s ChampionMasteryService) ChampionMastery(puuid string, champId string) (ChampionMasteryDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/by-champion/%s", s.client.PlatformUrl, puuid, champId)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
@@ -95,6 +99,8 @@ func (s ChampionMasteryService) ChampionMastery(puuid string, champId string) (C
 }
 
 //Get specified number of top champion mastery entries sorted by number of champion points descending
+//
+//https://developer.riotgames.com/apis#champion-mastery-v4/GET_getTopChampionMasteriesByPUUID
 func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([]ChampionMasteryDto, error){
 	if count <= 1 {
 		count = 1
@@ -117,6 +123,8 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 }
 
 // Get a player's total champion mastery score, which is the sum of individual champion mastery levels
+//
+//https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScoreByPUUID
 func (s ChampionMasteryService) TotalMasteryScore(puuid string) (int, error){
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/scores/by-puuid/%s", s.client.PlatformUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)

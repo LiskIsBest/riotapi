@@ -23,6 +23,8 @@ type AccountsService struct {
 
 
 //Get account username, tag, and puuid by puuid
+//
+//https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
 func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
@@ -43,6 +45,8 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 
 
 //Get account username, tag, and puuid by username and tag
+//
+//https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
 	req, err := s.client.NewRequest("GET", endpoint, nil)
@@ -62,6 +66,8 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 }
 
 //Get active shard for a player
+//
+//https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
 func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
 	req, err := s.client.NewRequest("GET", endpoint, nil)

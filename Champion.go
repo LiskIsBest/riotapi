@@ -16,6 +16,8 @@ type ChampionService struct {
 }
 
 //Returns champion rotations, including free-to-play and low-level free-to-play rotations
+//
+//https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo
 func (s ChampionService) ChampionRotations() (ChampionInfo, error) {
 	endpoint := fmt.Sprintf("%s/lol/platform/v3/champion-rotations",s.client.PlatformUrl)
 	req, err := s.client.NewRequest("GET",endpoint,nil)
