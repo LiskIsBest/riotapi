@@ -96,9 +96,9 @@ func (s ChampionMasteryService) ChampionMastery(puuid string, champId string) (C
 }
 
 //Get specified number of top champion mastery entries sorted by number of champion points descending
-func (s ChampionMasteryService) TopChampionMasteries(puuid string, count ...int) ([]ChampionMasteryDto, error){
-	if len(count) == 0{
-		count = []int{3}
+func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([]ChampionMasteryDto, error){
+	if count <= 1 {
+		count = 1
 	}
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top",baseHostURL1,puuid)
 	parsedUrl, err := url.Parse(endpoint)
@@ -106,9 +106,9 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count ...int)
 		return []ChampionMasteryDto{}, err
 	}
 	params := url.Values{}
-	params.Add("count",string(count[0]))
+	params.Add("count",string(count))
 	parsedUrl.RawQuery = params.Encode()
-	req, err := s.client.NewRequest("GET", endpoint,nil)
+	req, err := s.client.NewRequest("GET", parsedUrl.String() ,nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
