@@ -100,15 +100,8 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 	if count <= 1 {
 		count = 1
 	}
-	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top",baseHostURL1,puuid)
-	parsedUrl, err := url.Parse(endpoint)
-	if err != nil {
-		return []ChampionMasteryDto{}, err
-	}
-	params := url.Values{}
-	params.Add("count",string(count))
-	parsedUrl.RawQuery = params.Encode()
-	req, err := s.client.NewRequest("GET", parsedUrl.String() ,nil)
+	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top?count=%v",baseHostURL1,puuid,count)
+	req, err := s.client.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
