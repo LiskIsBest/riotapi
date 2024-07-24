@@ -3,7 +3,6 @@ package riotapi
 import (
 	"encoding/json"
 	"fmt"
-	"net/url"
 )
 
 type ChampionMasteryDto struct {
