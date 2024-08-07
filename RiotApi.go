@@ -25,10 +25,11 @@ type RiotApi struct {
 	PlatformUrl string
 	RegionalUrl string
 
-	key            string
-	Accounts       *AccountsService
-	ChampMasteries *ChampionMasteryService
-	Champions      *ChampionService
+	key          string
+	Account      *AccountsService
+	ChampMastery *ChampionMasteryService
+	Champion     *ChampionService
+	Summoner     *SummonerService
 }
 
 /*
@@ -43,24 +44,25 @@ func NewRiotApi(apiKey string, region string) (*RiotApi, error) {
 	client := http.Client{}
 
 	regional, platform, err := convertPlatform2Regional(region)
-	if err != nil{
+	if err != nil {
 		return &RiotApi{}, err
 	}
 
 	r.Platform = platform
 	r.Region = region
-	r.PlatformUrl = fmt.Sprintf("https://%s%s",platform,baseUrl)
-	r.RegionalUrl = fmt.Sprintf("https://%s%s",regional,baseUrl)
+	r.PlatformUrl = fmt.Sprintf("https://%s%s", platform, baseUrl)
+	r.RegionalUrl = fmt.Sprintf("https://%s%s", regional, baseUrl)
 
 	r.client = &client
 	r.key = apiKey
-	r.Accounts = &AccountsService{client: r}
-	r.ChampMasteries = &ChampionMasteryService{client: r}
-	r.Champions = &ChampionService{client: r}
+	r.Account = &AccountsService{client: r}
+	r.ChampMastery = &ChampionMasteryService{client: r}
+	r.Champion = &ChampionService{client: r}
+	r.Summoner = &SummonerService{client: r}
 	return r, nil
 }
 
-//Wrapper for http.NewRequest that adds the api key header
+// Wrapper for http.NewRequest that adds the api key header
 func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
@@ -70,7 +72,7 @@ func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Re
 	return req, nil
 }
 
-//Wrapper for http.Client.Do that handles status code checks and http.Response.Body to []byte conversion
+// Wrapper for http.Client.Do that handles status code checks and http.Response.Body to []byte conversion
 func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	resp, err := r.client.Do(req)
 	if err != nil {
@@ -88,21 +90,21 @@ func (r RiotApi) Do(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-//Creates regional value based on the region code given. also checks that the given region code is valid
+// Creates regional value based on the region code given. also checks that the given region code is valid
 func convertPlatform2Regional(region string) (string, string, error) {
-    var regional string
+	var regional string
 
-    switch strings.ToUpper(region) {
-    case "NA1", "BR1", "LA1", "LA2", "NA", "BR", "LAN", "LAS":
-        regional = "AMERICAS"
-    case "KR", "JP1", "JP":
-        regional = "ASIA"
-    case "EUN1", "EUW1", "TR1", "RU", "EUNE", "EUW", "TR":
-        regional = "EUROPE"
-    case "OC1", "PH2", "SG2", "TH2", "TW2", "VN2", "OCE", "PH", "SG", "TH", "TW", "VN":
-        regional = "SEA"
-    default:
-        return "", "", fmt.Errorf("entered region: %s, is not a valid region", region)
-    }
+	switch strings.ToUpper(region) {
+	case "NA1", "BR1", "LA1", "LA2", "NA", "BR", "LAN", "LAS":
+		regional = "AMERICAS"
+	case "KR", "JP1", "JP":
+		regional = "ASIA"
+	case "EUN1", "EUW1", "TR1", "RU", "EUNE", "EUW", "TR":
+		regional = "EUROPE"
+	case "OC1", "PH2", "SG2", "TH2", "TW2", "VN2", "OCE", "PH", "SG", "TH", "TW", "VN":
+		regional = "SEA"
+	default:
+		return "", "", fmt.Errorf("entered region: %s, is not a valid region", region)
+	}
 	return regional, region, nil
 }
