@@ -30,6 +30,7 @@ type RiotApi struct {
 	ChampMastery *ChampionMasteryService
 	Champion     *ChampionService
 	Summoner     *SummonerService
+	Matches      *MatchesService
 }
 
 /*
@@ -59,6 +60,7 @@ func NewRiotApi(apiKey string, region string) (*RiotApi, error) {
 	r.ChampMastery = &ChampionMasteryService{client: r}
 	r.Champion = &ChampionService{client: r}
 	r.Summoner = &SummonerService{client: r}
+	r.Matches = &MatchesService{client: r}
 	return r, nil
 }
 
