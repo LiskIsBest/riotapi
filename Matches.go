@@ -183,7 +183,7 @@ type ChallengesDto struct {
 	BaronBuffGoldAdvantageOverThreshold       int     `json:"baronBuffGoldAdvantageOverThreshold"`
 	ControlWardTimeCoverageInRiverOrEnemyHalf float32 `json:"controlWardTimeCoverageInRiverOrEnemyHalf"`
 	EarliestBaron                             int     `json:"earliestBaron"`
-	EarliestDragonTakedown                    int     `json:"earliestDragonTakedown"`
+	EarliestDragonTakedown                    float32 `json:"earliestDragonTakedown"`
 	EarliestElderDragon                       int     `json:"earliestElderDragon"`
 	EarlyLaningPhaseGoldExpAdvantage          int     `json:"earlyLaningPhaseGoldExpAdvantage"`
 	FasterSupportQuestCompletion              int     `json:"fasterSupportQuestCompletion"`
