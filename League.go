@@ -28,19 +28,19 @@ type LeagueItemDto struct {
 }
 
 type LeagueEntryDto struct {
-	LeagueId string `json:"leagueId"`
-	SummonerId string `json:"summonerId"`
-	QueueType string `json:"queueType"`
-	Tier string `json:"tier"`
-	Rank string `json:"rank"`
-	LeaguePoints int `json:"leaguePoints"`
-	Wins int `json:"wins"`
-	Losses int `json:"losses"`
-	HotStreak bool `json:"hotStreak"`
-	Veteran bool `json:"veteran"`
-	FreshBlood bool `json:"freshBlood"`
-	Inactive bool `json:"inactive"`
-	MiniSeries MiniSeriesDto `json:"miniSeries"`
+	LeagueId     string        `json:"leagueId"`
+	SummonerId   string        `json:"summonerId"`
+	QueueType    string        `json:"queueType"`
+	Tier         string        `json:"tier"`
+	Rank         string        `json:"rank"`
+	LeaguePoints int           `json:"leaguePoints"`
+	Wins         int           `json:"wins"`
+	Losses       int           `json:"losses"`
+	HotStreak    bool          `json:"hotStreak"`
+	Veteran      bool          `json:"veteran"`
+	FreshBlood   bool          `json:"freshBlood"`
+	Inactive     bool          `json:"inactive"`
+	MiniSeries   MiniSeriesDto `json:"miniSeries"`
 }
 
 type MiniSeriesDto struct {
@@ -54,7 +54,8 @@ type LeagueService struct {
 	client *RiotApi
 }
 
-var QUEUE_OPTIONS = []string{"RANKED_SOLO_SR","RANKED_SOLO_TT","RANKED_FLEX_5x5"}
+var QUEUE_OPTIONS = []string{"RANKED_SOLO_SR", "RANKED_SOLO_TT", "RANKED_FLEX_5x5"}
+
 // Get the challenger league for given queue
 //
 // Valid queue options: RANKED_SOLO_SR, RANKED_SOLO_TT, RANKED_FLEX_5x5
@@ -64,7 +65,7 @@ func (s LeagueService) Challengerleagues(queue string) (LeagueListDto, error) {
 	if !slices.Contains(QUEUE_OPTIONS, queue) {
 		return LeagueListDto{}, fmt.Errorf("queue: %s. is not a valid option", queue)
 	}
-	endpoint := fmt.Sprintf("%s/lol/league/v4/challengerleagues/by-queue/%s",s.client.PlatformUrl, queue)
+	endpoint := fmt.Sprintf("%s/lol/league/v4/challengerleagues/by-queue/%s", s.client.PlatformUrl, queue)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return LeagueListDto{}, err
@@ -81,9 +82,9 @@ func (s LeagueService) Challengerleagues(queue string) (LeagueListDto, error) {
 	return leagueList, nil
 }
 
-//Get league entries in all queues for a given summoner ID
+// Get league entries in all queues for a given summoner ID
 //
-//https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner
-func (s LeagueService) EntriesBySummonerId(summonerId string) (){
+// https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesForSummoner
+func (s LeagueService) EntriesBySummonerId(summonerId string) {
 
 }

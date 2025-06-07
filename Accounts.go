@@ -21,10 +21,9 @@ type AccountsService struct {
 	client *RiotApi
 }
 
-
-//Get account username, tag, and puuid by puuid
+// Get account username, tag, and puuid by puuid
 //
-//https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
+// https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
 func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
@@ -43,10 +42,9 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 	return account, nil
 }
 
-
-//Get account username, tag, and puuid by username and tag
+// Get account username, tag, and puuid by username and tag
 //
-//https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
+// https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
 	req, err := s.client.newRequest("GET", endpoint, nil)
@@ -65,9 +63,9 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 	return account, nil
 }
 
-//Get active shard for a player
+// Get active shard for a player
 //
-//https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
+// https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
 func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
@@ -80,7 +78,7 @@ func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveSha
 	}
 	var shard ActiveShardDto
 	err = json.Unmarshal(body, &shard)
-	if err != nil{
+	if err != nil {
 		return ActiveShardDto{}, err
 	}
 	return shard, nil

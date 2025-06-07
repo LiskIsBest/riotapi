@@ -498,11 +498,11 @@ type MatchesService struct {
 	client *RiotApi
 }
 
-//Get a list of match ids by puuid
+// Get a list of match ids by puuid
 //
-//https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
-func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error){
-	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/by-puuid/%s/ids", s.client.PlatformUrl, puuid)
+// https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
+func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error) {
+	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/by-puuid/%s/ids", s.client.RegionalUrl, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []string{}, err
@@ -513,17 +513,17 @@ func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error){
 	}
 	var matches []string
 	err = json.Unmarshal(body, &matches)
-	if err != nil{
+	if err != nil {
 		return []string{}, err
 	}
 	return matches, nil
 }
 
-//Get a match by match id
+// Get a match by match id
 //
-//https://developer.riotgames.com/apis#match-v5/GET_getMatch
-func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error){
-	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s", s.client.PlatformUrl, matchId)
+// https://developer.riotgames.com/apis#match-v5/GET_getMatch
+func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error) {
+	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s", s.client.RegionalUrl, matchId)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return MatchDto{}, err
@@ -534,17 +534,17 @@ func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error){
 	}
 	var match MatchDto
 	err = json.Unmarshal(body, &match)
-	if err != nil{
+	if err != nil {
 		return MatchDto{}, err
 	}
 	return match, nil
 }
 
-//Get a match timeline by match id
+// Get a match timeline by match id
 //
-//https://developer.riotgames.com/apis#match-v5/GET_getTimeline
-func (s MatchesService) MatchTimeline(matchId string) (TimelineDto, error){
-	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s/timeline", s.client.PlatformUrl, matchId)
+// https://developer.riotgames.com/apis#match-v5/GET_getTimeline
+func (s MatchesService) MatchTimeline(matchId string) (TimelineDto, error) {
+	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s/timeline", s.client.RegionalUrl, matchId)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return TimelineDto{}, err
@@ -555,7 +555,7 @@ func (s MatchesService) MatchTimeline(matchId string) (TimelineDto, error){
 	}
 	var timeline TimelineDto
 	err = json.Unmarshal(body, &timeline)
-	if err != nil{
+	if err != nil {
 		return TimelineDto{}, err
 	}
 	return timeline, nil
