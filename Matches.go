@@ -215,7 +215,7 @@ type ChallengesDto struct {
 	AlliedJungleMonsterKills                  float32 `json:"alliedJungleMonsterKills"`
 	BaronTakedowns                            int     `json:"baronTakedowns"`
 	BlastConeOppositeOpponentCount            int     `json:"blastConeOppositeOpponentCount"`
-	BountyGold                                int     `json:"bountyGold"`
+	BountyGold                                float32 `json:"bountyGold"`
 	BuffsStolen                               int     `json:"buffsStolen"`
 	CompleteSupportQuestInTime                int     `json:"completeSupportQuestInTime"`
 	ControlWardsPlaced                        int     `json:"controlWardsPlaced"`
