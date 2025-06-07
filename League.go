@@ -65,11 +65,11 @@ func (s LeagueService) Challengerleagues(queue string) (LeagueListDto, error) {
 		return LeagueListDto{}, fmt.Errorf("queue: %s. is not a valid option", queue)
 	}
 	endpoint := fmt.Sprintf("%s/lol/league/v4/challengerleagues/by-queue/%s",s.client.PlatformUrl, queue)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return LeagueListDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return LeagueListDto{}, err
 	}

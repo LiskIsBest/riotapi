@@ -65,7 +65,7 @@ func NewRiotApi(apiKey string, region string) (*RiotApi, error) {
 }
 
 // Wrapper for http.NewRequest that adds the api key header
-func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
+func (r RiotApi) newRequest(method string, url string, body io.Reader) (*http.Request, error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
@@ -75,7 +75,7 @@ func (r RiotApi) NewRequest(method string, url string, body io.Reader) (*http.Re
 }
 
 // Wrapper for http.Client.Do that handles status code checks and http.Response.Body to []byte conversion
-func (r RiotApi) Do(req *http.Request) ([]byte, error) {
+func (r RiotApi) do(req *http.Request) ([]byte, error) {
 	resp, err := r.client.Do(req)
 	if err != nil {
 		return nil, err

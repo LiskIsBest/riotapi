@@ -503,11 +503,11 @@ type MatchesService struct {
 //https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
 func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error){
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/by-puuid/%s/ids", s.client.PlatformUrl, puuid)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []string{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return []string{}, err
 	}
@@ -524,11 +524,11 @@ func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error){
 //https://developer.riotgames.com/apis#match-v5/GET_getMatch
 func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error){
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s", s.client.PlatformUrl, matchId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return MatchDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return MatchDto{}, err
 	}
@@ -545,11 +545,11 @@ func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error){
 //https://developer.riotgames.com/apis#match-v5/GET_getTimeline
 func (s MatchesService) MatchTimeline(matchId string) (TimelineDto, error){
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s/timeline", s.client.PlatformUrl, matchId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return TimelineDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return TimelineDto{}, err
 	}

@@ -27,11 +27,11 @@ type AccountsService struct {
 //https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
 func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return AccountDto{}, err
 	}
@@ -49,11 +49,11 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 //https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
 func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return AccountDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return AccountDto{}, err
 	}
@@ -70,11 +70,11 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 //https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
 func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return ActiveShardDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return ActiveShardDto{}, err
 	}

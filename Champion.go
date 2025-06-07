@@ -20,11 +20,11 @@ type ChampionService struct {
 //https://developer.riotgames.com/apis#champion-v3/GET_getChampionInfo
 func (s ChampionService) ChampionRotations() (ChampionInfo, error) {
 	endpoint := fmt.Sprintf("%s/lol/platform/v3/champion-rotations",s.client.PlatformUrl)
-	req, err := s.client.NewRequest("GET",endpoint,nil)
+	req, err := s.client.newRequest("GET",endpoint,nil)
 	if err != nil {
 		return ChampionInfo{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return ChampionInfo{}, err
 	}

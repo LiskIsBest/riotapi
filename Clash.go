@@ -49,11 +49,11 @@ type ClashService struct {
 // https://developer.riotgames.com/apis#clash-v1/GET_getPlayersBySummoner
 func (s ClashService) PlayersBySummonerId(summonerId string) ([]PlayerDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/clash/v1/players/by-summoner/%s", s.client.PlatformUrl, summonerId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []PlayerDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return []PlayerDto{}, err
 	}
@@ -70,11 +70,11 @@ func (s ClashService) PlayersBySummonerId(summonerId string) ([]PlayerDto, error
 // https://developer.riotgames.com/apis#clash-v1/GET_getTeamById
 func (s ClashService) TeamByTeamId(teamId string) (TeamDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/clash/v1/teams/%s", s.client.PlatformUrl, teamId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return TeamDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return TeamDto{}, err
 	}
@@ -91,11 +91,11 @@ func (s ClashService) TeamByTeamId(teamId string) (TeamDto, error) {
 // https://developer.riotgames.com/apis#clash-v1/GET_getTournaments
 func (s ClashService) GetTournaments() ([]TournamentDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/clash/v1/tournaments", s.client.PlatformUrl)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []TournamentDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return []TournamentDto{}, err
 	}
@@ -112,11 +112,11 @@ func (s ClashService) GetTournaments() ([]TournamentDto, error) {
 // https://developer.riotgames.com/apis#clash-v1/GET_getTournamentByTeam
 func (s ClashService) GetTournamentByTeamId(teamId string) (TournamentDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/clash/v1/tournaments/by-team/%s", s.client.PlatformUrl, teamId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return TournamentDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return TournamentDto{}, err
 	}
@@ -133,11 +133,11 @@ func (s ClashService) GetTournamentByTeamId(teamId string) (TournamentDto, error
 // https://developer.riotgames.com/apis#clash-v1/GET_getTournamentById
 func (s ClashService) GetTournamentById(tournamentId string) (TournamentDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/clash/v1/tournaments/%s", s.client.PlatformUrl, tournamentId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return TournamentDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return TournamentDto{}, err
 	}

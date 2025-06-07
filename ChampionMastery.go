@@ -61,11 +61,11 @@ type ChampionMasteryService struct {
 //https://developer.riotgames.com/apis#champion-mastery-v4/GET_getAllChampionMasteriesByPUUID
 func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMasteryDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s", s.client.PlatformUrl, puuid)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
@@ -82,11 +82,11 @@ func (s ChampionMasteryService) ChampionMasteries(puuid string) ([]ChampionMaste
 //https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryByPUUID
 func (s ChampionMasteryService) ChampionMastery(puuid string, champId string) (ChampionMasteryDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/by-champion/%s", s.client.PlatformUrl, puuid, champId)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return ChampionMasteryDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return ChampionMasteryDto{}, err
 	}
@@ -106,11 +106,11 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 		count = 1
 	}
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/champion-masteries/by-puuid/%s/top?count=%v",s.client.PlatformUrl,puuid,count)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return []ChampionMasteryDto{}, err
 	}
@@ -127,11 +127,11 @@ func (s ChampionMasteryService) TopChampionMasteries(puuid string, count int) ([
 //https://developer.riotgames.com/apis#champion-mastery-v4/GET_getChampionMasteryScoreByPUUID
 func (s ChampionMasteryService) TotalMasteryScore(puuid string) (int, error){
 	endpoint := fmt.Sprintf("%s/lol/champion-mastery/v4/scores/by-puuid/%s", s.client.PlatformUrl, puuid)
-	req, err := s.client.NewRequest("GET", endpoint, nil)
+	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
 		return 0, err
 	}
-	body, err := s.client.Do(req)
+	body, err := s.client.do(req)
 	if err != nil {
 		return 0, err
 	}
