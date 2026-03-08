@@ -2,14 +2,13 @@ package riotapi
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
 type SummonerDto struct {
-	AccountId     string `json:"accountId"`
 	ProfileIconId int    `json:"profileIconId"`
 	RevisionDate  int    `json:"revisionDate"`
-	Id            int    `json:"id"`
 	Puuid         string `json:"puuid"`
 	SummonerLevel int    `json:"summonerLevel"`
 }
@@ -37,4 +36,11 @@ func (s SummonerService) SummonerByPuuid(puuid string) (SummonerDto, error) {
 		return SummonerDto{}, err
 	}
 	return summoner, nil
+}
+
+// Get a summoner by access token
+//
+// https://developer.riotgames.com/apis#summoner-v4/GET_getByAccessToken
+func (s SummonerService) SummonerByAccessToken(accessToken string) (SummonerDto, error){
+	return SummonerDto{}, errors.New("Summoner.Summoners not implemented yet")
 }
