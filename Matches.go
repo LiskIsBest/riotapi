@@ -507,7 +507,7 @@ type MatchesService struct {
 // Get a list of match ids by puuid
 //
 // https://developer.riotgames.com/apis#match-v5/GET_getMatchIdsByPUUID
-func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error) {
+func (s MatchesService) GetMatchIdsByPUUID(puuid string) ([]string, error) {
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/by-puuid/%s/ids", s.client.RegionalUrl, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -528,14 +528,14 @@ func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error) {
 // Get player replays
 //
 // https://developer.riotgames.com/apis#match-v5/GET_getReplay
-func (s MatchesService) MatchesByPuuidReplays(puuid string) (ReplayDto, error){
-	return ReplayDto{}, errors.New("MatchesService.MatchesByPuuidReplays not implemented yet")
+func (s MatchesService) GetReplay(puuid string) (ReplayDto, error){
+	return ReplayDto{}, errors.New("MatchesService.GetReplay not implemented yet")
 }
 
 // Get a match by match id
 //
 // https://developer.riotgames.com/apis#match-v5/GET_getMatch
-func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error) {
+func (s MatchesService) GetMatch(matchId string) (MatchDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s", s.client.RegionalUrl, matchId)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -556,7 +556,7 @@ func (s MatchesService) MatchByMatchId(matchId string) (MatchDto, error) {
 // Get a match timeline by match id
 //
 // https://developer.riotgames.com/apis#match-v5/GET_getTimeline
-func (s MatchesService) MatchTimeline(matchId string) (TimelineDto, error) {
+func (s MatchesService) GetTimeline(matchId string) (TimelineDto, error) {
 	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/%s/timeline", s.client.RegionalUrl, matchId)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {

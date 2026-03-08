@@ -62,7 +62,7 @@ var QUEUE_OPTIONS = []string{"RANKED_SOLO_SR", "RANKED_SOLO_TT", "RANKED_FLEX_5x
 // Valid queue options: RANKED_SOLO_SR, RANKED_SOLO_TT, RANKED_FLEX_5x5
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getChallengerLeague
-func (s LeagueService) Challengerleagues(queue string) (LeagueListDto, error) {
+func (s LeagueService) GetChallengerleague(queue string) (LeagueListDto, error) {
 	if !slices.Contains(QUEUE_OPTIONS, queue) {
 		return LeagueListDto{}, fmt.Errorf("queue: %s. is not a valid option", queue)
 	}
@@ -86,35 +86,35 @@ func (s LeagueService) Challengerleagues(queue string) (LeagueListDto, error) {
 // Get league entries in all queues for a given puuid
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesByPUUID
-func (s LeagueService) EntriesByPuuid(puuid string) (string, error){
-	return "", errors.New("League.EntriesByPuuid not implemented yet.") 
+func (s LeagueService) GetLeagueEntriesByPUUID(puuid string) ([]LeagueEntryDto, error){
+	return []LeagueEntryDto{}, errors.New("League.GetLeagueEntriesByPUUID not implemented yet.") 
 }
 
 // Get all the league entries
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries
-func (s LeagueService) Entries(queue string, tier string, division string) (string, error){
-	return "", errors.New("League.Entries not implemented yet.")
+func (s LeagueService) GetLeagueEntries(queue string, tier string, division string) ([]LeagueEntryDto, error){
+	return []LeagueEntryDto{}, errors.New("League.Entries not implemented yet.")
 }
 
 // Get the grandmaster league of a specific queue
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague
-func (s LeagueService) GrandmasterLeagues(queue string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.GrandmasterLeagues not implemented yet.")
+func (s LeagueService) GetGrandmasterLeague(queue string)(LeagueListDto, error){
+	return LeagueListDto{}, errors.New("League.GetGrandmasterLeague not implemented yet.")
 }
 
 // Get league with given ID, including inactive entries
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueById
-func (s LeagueService) Leagues(leagueId string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.Leagues not implemented yet.")
+func (s LeagueService) GetLeagueById(leagueId string)(LeagueListDto, error){
+	return LeagueListDto{}, errors.New("League.GetLeagueById not implemented yet.")
 }
 
 // Get the master league for given queue
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague
-func (s LeagueService) MasterLeagues(queue string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.MasterLeagues not implemented yet.")
+func (s LeagueService) GetMasterLeague(queue string)(LeagueListDto, error){
+	return LeagueListDto{}, errors.New("League.GetMasterLeague not implemented yet.")
 }
 

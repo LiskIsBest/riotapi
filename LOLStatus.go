@@ -44,6 +44,6 @@ type LOLStatusService struct {
 // Get League of Legends status for the given platform
 //
 // https://developer.riotgames.com/apis#lol-status-v4/GET_getPlatformData
-func (s LOLStatusService) PlatformData() (PlatformDataDto, error) {
-	return PlatformDataDto{}, errors.New("LOLStatus.PlatformData not implemented yet.")
+func (s LOLStatusService) GetPlatformData() (PlatformDataDto, error) {
+	return PlatformDataDto{}, errors.New("LOLStatus.GetPlatformData not implemented yet.")
 }

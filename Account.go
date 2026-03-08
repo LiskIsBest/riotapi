@@ -31,7 +31,7 @@ type AccountService struct {
 // Get account username, tag, and puuid by puuid
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
-func (s AccountService) AccountByPuuid(puuid string) (AccountDto, error) {
+func (s AccountService) GetByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -52,7 +52,7 @@ func (s AccountService) AccountByPuuid(puuid string) (AccountDto, error) {
 // Get account username, tag, and puuid by username and tag
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
-func (s AccountService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
+func (s AccountService) GetByRiotId(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -73,7 +73,7 @@ func (s AccountService) AccountByRiotID(gameName string, tagLine string) (Accoun
 // Get active shard for a player
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
-func (s AccountService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
+func (s AccountService) GetActiveShard(game string, puuid string) (ActiveShardDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -96,13 +96,13 @@ func (s AccountService) ActiveShardByGame(game string, puuid string) (ActiveShar
 // Game options: "lol" and "tft"
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getActiveRegion
-func (s AccountService) ActiveRegion(game string, puuid string) (AccountRegionDTO, error) {
-	return AccountRegionDTO{}, errors.New("Account.ActiveRegion not implemented yet.")
+func (s AccountService) GetActiveRegion(game string, puuid string) (AccountRegionDTO, error) {
+	return AccountRegionDTO{}, errors.New("Account.GetActiveRegion not implemented yet.")
 }
 
 // Get account by access token
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByAccessToken
-func (s AccountService) AccountByAccessToken(token string) (AccountDto, error) {
-	return AccountDto{}, errors.New("Account.AccountByAccessToken not implemented yet.")
+func (s AccountService) GetByAccessToken(token string) (AccountDto, error) {
+	return AccountDto{}, errors.New("Account.GetByAccessToken not implemented yet.")
 }
