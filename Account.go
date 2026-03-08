@@ -3,6 +3,7 @@ package riotapi
 import (
 	"encoding/json"
 	"fmt"
+	"errors"
 )
 
 type AccountDto struct {
@@ -17,14 +18,20 @@ type ActiveShardDto struct {
 	ActiveShard string `json:"activeShard"`
 }
 
-type AccountsService struct {
+type AccountRegionDTO struct {
+	Puuid  string `json:"puuid"`
+	Game   string `json:"game"`
+	Region string `json:"region"`
+}
+
+type AccountService struct {
 	client *RiotApi
 }
 
 // Get account username, tag, and puuid by puuid
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByPuuid
-func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
+func (s AccountService) AccountByPuuid(puuid string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-puuid/%s", s.client.RegionalUrl, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -45,7 +52,7 @@ func (s AccountsService) AccountByPuuid(puuid string) (AccountDto, error) {
 // Get account username, tag, and puuid by username and tag
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByRiotId
-func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
+func (s AccountService) AccountByRiotID(gameName string, tagLine string) (AccountDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/by-riot-id/%s/%s", s.client.RegionalUrl, gameName, tagLine)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -66,7 +73,7 @@ func (s AccountsService) AccountByRiotID(gameName string, tagLine string) (Accou
 // Get active shard for a player
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getActiveShard
-func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
+func (s AccountService) ActiveShardByGame(game string, puuid string) (ActiveShardDto, error) {
 	endpoint := fmt.Sprintf("%s/riot/account/v1/active-shards/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
 	req, err := s.client.newRequest("GET", endpoint, nil)
 	if err != nil {
@@ -82,4 +89,20 @@ func (s AccountsService) ActiveShardByGame(game string, puuid string) (ActiveSha
 		return ActiveShardDto{}, err
 	}
 	return shard, nil
+}
+
+// Get active region (lol and tft)
+// 
+// Game options: "lol" and "tft"
+//
+// https://developer.riotgames.com/apis#account-v1/GET_getActiveRegion
+func (s AccountService) ActiveRegion(game string, puuid string) (AccountRegionDTO, error) {
+	return AccountRegionDTO{}, errors.New("Account.ActiveRegion not implemented yet.")
+}
+
+// Get account by access token
+//
+// https://developer.riotgames.com/apis#account-v1/GET_getByAccessToken
+func (s AccountService) AccountByAccessToken(token string) (AccountDto, error) {
+	return AccountDto{}, errors.New("Account.AccountByAccessToken not implemented yet.")
 }
