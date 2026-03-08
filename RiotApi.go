@@ -25,12 +25,16 @@ type RiotApi struct {
 	PlatformUrl string
 	RegionalUrl string
 
-	key          string
-	Account      *AccountsService
-	ChampMastery *ChampionMasteryService
-	Champion     *ChampionService
-	Summoner     *SummonerService
-	Matches      *MatchesService
+	key           string
+	Account       *AccountService
+	ChampMastery  *ChampionMasteryService
+	Champion      *ChampionService
+	Summoner      *SummonerService
+	Matches       *MatchesService
+	League        *LeagueService
+	LeagueExp     *LeagueExpService
+	LOLChallenges *LOLChallengesService
+	LOLStatus     *LOLStatusService
 }
 
 /*
@@ -56,11 +60,15 @@ func NewRiotApi(apiKey string, region string) (*RiotApi, error) {
 
 	r.client = &client
 	r.key = apiKey
-	r.Account = &AccountsService{client: r}
+	r.Account = &AccountService{client: r}
 	r.ChampMastery = &ChampionMasteryService{client: r}
 	r.Champion = &ChampionService{client: r}
 	r.Summoner = &SummonerService{client: r}
 	r.Matches = &MatchesService{client: r}
+	r.League = &LeagueService{client: r}
+	r.LeagueExp = &LeagueExpService{client: r}
+	r.LOLChallenges = &LOLChallengesService{client: r}
+	r.LOLStatus = &LOLStatusService{client: r}
 	return r, nil
 }
 
