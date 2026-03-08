@@ -2,6 +2,7 @@ package riotapi
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 )
 
@@ -494,6 +495,11 @@ type PositionDto struct {
 	Y int
 }
 
+type ReplayDto struct {
+	Total int `json:"total"`
+	MatchFileURLs []string `json:"matchFileURLs"`
+}
+
 type MatchesService struct {
 	client *RiotApi
 }
@@ -517,6 +523,13 @@ func (s MatchesService) MatchesByPuuid(puuid string) ([]string, error) {
 		return []string{}, err
 	}
 	return matches, nil
+}
+
+// Get player replays
+//
+// https://developer.riotgames.com/apis#match-v5/GET_getReplay
+func (s MatchesService) MatchesByPuuidReplays(puuid string) (ReplayDto, error){
+	return ReplayDto{}, errors.New("MatchesService.MatchesByPuuidReplays not implemented yet")
 }
 
 // Get a match by match id
