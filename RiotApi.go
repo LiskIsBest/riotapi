@@ -118,7 +118,3 @@ func convertPlatform2Regional(region string) (string, string, error) {
 	}
 	return regional, region, nil
 }
-
-func Test(num int)int{
-	return num*2
-}
