@@ -120,3 +120,6 @@ func convertPlatform2Regional(region string) (string, string, error) {
 }
 
 // test
+func test()int{
+	return 10
+}
