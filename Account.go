@@ -3,7 +3,6 @@ package riotapi
 import (
 	"encoding/json"
 	"fmt"
-	"errors"
 )
 
 type AccountDto struct {
@@ -97,12 +96,41 @@ func (s AccountService) GetActiveShard(game string, puuid string) (ActiveShardDt
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getActiveRegion
 func (s AccountService) GetActiveRegion(game string, puuid string) (AccountRegionDTO, error) {
-	return AccountRegionDTO{}, errors.New("Account.GetActiveRegion not implemented yet.")
+	endpoint := fmt.Sprintf("%s/riot/account/v1/region/by-game/%s/by-puuid/%s", s.client.RegionalUrl, game, puuid)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return AccountRegionDTO{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return AccountRegionDTO{}, err
+	}
+	var region AccountRegionDTO
+	err = json.Unmarshal(body, &region)
+	if err != nil {
+		return AccountRegionDTO{}, err
+	}
+	return region, nil
 }
 
 // Get account by access token
 //
 // https://developer.riotgames.com/apis#account-v1/GET_getByAccessToken
 func (s AccountService) GetByAccessToken(token string) (AccountDto, error) {
-	return AccountDto{}, errors.New("Account.GetByAccessToken not implemented yet.")
+	endpoint := fmt.Sprintf("%s/riot/account/v1/accounts/meGet", s.client.RegionalUrl)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return AccountDto{}, err
+	}
+	req.Header.Add("Authorization", token)
+	body, err := s.client.do(req)
+	if err != nil {
+		return AccountDto{}, err
+	}
+	var region AccountDto
+	err = json.Unmarshal(body, &region)
+	if err != nil {
+		return AccountDto{}, err
+	}
+	return region, nil
 }

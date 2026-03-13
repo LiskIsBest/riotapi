@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"slices"
-	"errors"
 )
 
 type LeagueListDto struct {
@@ -87,34 +86,110 @@ func (s LeagueService) GetChallengerleague(queue string) (LeagueListDto, error) 
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntriesByPUUID
 func (s LeagueService) GetLeagueEntriesByPUUID(puuid string) ([]LeagueEntryDto, error){
-	return []LeagueEntryDto{}, errors.New("League.GetLeagueEntriesByPUUID not implemented yet.") 
+	endpoint := fmt.Sprintf("%s/lol/league/v4/entries/by-puuid/%s", s.client.PlatformUrl,puuid)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	var league []LeagueEntryDto
+	err = json.Unmarshal(body, &league)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	return league, nil
 }
 
 // Get all the league entries
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueEntries
 func (s LeagueService) GetLeagueEntries(queue string, tier string, division string) ([]LeagueEntryDto, error){
-	return []LeagueEntryDto{}, errors.New("League.Entries not implemented yet.")
+	endpoint := fmt.Sprintf("%s/lol/league/v4/entries/%s/%s/%s", s.client.PlatformUrl,queue,tier,division)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	var league []LeagueEntryDto
+	err = json.Unmarshal(body, &league)
+	if err != nil {
+		return []LeagueEntryDto{}, err
+	}
+	return league, nil
 }
 
 // Get the grandmaster league of a specific queue
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getGrandmasterLeague
 func (s LeagueService) GetGrandmasterLeague(queue string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.GetGrandmasterLeague not implemented yet.")
+	if !slices.Contains(QUEUE_OPTIONS, queue) {
+		return LeagueListDto{}, fmt.Errorf("queue: %s. is not a valid option", queue)
+	}
+	endpoint := fmt.Sprintf("%s/lol/league/v4/grandmasterleagues/by-queue/%s", s.client.PlatformUrl, queue)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	var leagueList LeagueListDto
+	err = json.Unmarshal(body, &leagueList)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	return leagueList, nil
 }
 
 // Get league with given ID, including inactive entries
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getLeagueById
 func (s LeagueService) GetLeagueById(leagueId string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.GetLeagueById not implemented yet.")
+	endpoint := fmt.Sprintf("%s/lol/league/v4/leagues/{leagueId}", s.client.PlatformUrl, leagueId)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	var leagueList LeagueListDto
+	err = json.Unmarshal(body, &leagueList)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	return leagueList, nil
 }
 
 // Get the master league for given queue
 //
 // https://developer.riotgames.com/apis#league-v4/GET_getMasterLeague
 func (s LeagueService) GetMasterLeague(queue string)(LeagueListDto, error){
-	return LeagueListDto{}, errors.New("League.GetMasterLeague not implemented yet.")
+	if !slices.Contains(QUEUE_OPTIONS, queue) {
+		return LeagueListDto{}, fmt.Errorf("queue: %s. is not a valid option", queue)
+	}
+	endpoint := fmt.Sprintf("%s/lol/league/v4/masterleagues/by-queue/%s", s.client.PlatformUrl, queue)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	var leagueList LeagueListDto
+	err = json.Unmarshal(body, &leagueList)
+	if err != nil {
+		return LeagueListDto{}, err
+	}
+	return leagueList, nil
 }
 

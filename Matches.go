@@ -2,7 +2,6 @@ package riotapi
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 )
 
@@ -529,7 +528,21 @@ func (s MatchesService) GetMatchIdsByPUUID(puuid string) ([]string, error) {
 //
 // https://developer.riotgames.com/apis#match-v5/GET_getReplay
 func (s MatchesService) GetReplay(puuid string) (ReplayDto, error){
-	return ReplayDto{}, errors.New("MatchesService.GetReplay not implemented yet")
+	endpoint := fmt.Sprintf("%s/lol/match/v5/matches/by-puuid/%s/replays", s.client.RegionalUrl, puuid)
+	req, err := s.client.newRequest("GET", endpoint, nil)
+	if err != nil {
+		return ReplayDto{}, err
+	}
+	body, err := s.client.do(req)
+	if err != nil {
+		return ReplayDto{}, err
+	}
+	var replay ReplayDto
+	err = json.Unmarshal(body, &replay)
+	if err != nil {
+		return ReplayDto{}, err
+	}
+	return replay, nil
 }
 
 // Get a match by match id
